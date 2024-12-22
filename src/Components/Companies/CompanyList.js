@@ -3,11 +3,11 @@ import JoblyApi from "../../api";
 import CompanyCard from "./CompanyCard";
 
 const CompanyList = () => {
-  const [companies, setCompanies] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [companies, setCompanies] = useState([]);// State to store companies
+  const [searchTerm, setSearchTerm] = useState("");// State to store search term
   const [searchInput, setSearchInput] = useState(""); // For controlled input
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);// Loading state
+  const [error, setError] = useState(null);// Error state
 
   // Fetch companies based on the search term or initial load
   useEffect(() => {
@@ -16,6 +16,7 @@ const CompanyList = () => {
       setError(null);
 
       try {
+        // Set filters based on the search term
         const filters = searchTerm ? { name: searchTerm } : {};
         const fetchedCompanies = await JoblyApi.getCompanies(filters);
         setCompanies(fetchedCompanies);
@@ -79,7 +80,6 @@ const CompanyList = () => {
               <CompanyCard
                 name={company.name}
                 description={company.description}
-                logoUrl={company.logoUrl || "https://via.placeholder.com/80"}
                 handle={company.handle}
               />
             </div>

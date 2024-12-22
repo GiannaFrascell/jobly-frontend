@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const CompanyCard = ({ name, description, logoUrl, handle }) => {
+const CompanyCard = ({ name, description, handle }) => {
   return (
     <div className="card text-center bg-dark text-white shadow-sm h-100">
       <div className="card-body">

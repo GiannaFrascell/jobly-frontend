@@ -8,10 +8,10 @@ import { AuthContext } from "../../Context/AuthContext";
 
 const CompanyDetail = () => {
   const { handle } = useParams(); // Extract company handle from URL
-  const [company, setCompany] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const { currentUser } = useContext(AuthContext);
+  const [company, setCompany] = useState(null);// State to store company details
+  const [isLoading, setIsLoading] = useState(true);// Loading state
+  const [error, setError] = useState(null);// Error state
+  const { currentUser } = useContext(AuthContext);// Get the current user from context
 
   useEffect(() => {
     const fetchCompanyData = async () => {
@@ -39,7 +39,7 @@ const CompanyDetail = () => {
     return (
       <div
         className="d-flex justify-content-center align-items-center vh-100"
-        style={{ backgroundColor: "#000" }} // Optional: Add a dark background for better visibility
+        style={{ backgroundColor: "#000" }} 
       >
         <div
           className="spinner-border text-success"
@@ -61,6 +61,7 @@ const CompanyDetail = () => {
   }
 
   return (
+    // Display company details and jobs
     <div className="container py-4 text-white mt-5">
       <div className="mt-5">
         
@@ -73,7 +74,7 @@ const CompanyDetail = () => {
         <h3>Jobs at {company.name}</h3>
         {company.jobs.length === 0 ? (
           <p>No jobs available for this company.</p>
-        ) : (
+        ) : (// Display jobs if available
           <div className="row row-cols-1 row-cols-md-3 g-4">
             {company.jobs.map((job) => (
               <div className="col-md-4" key={job.id}>

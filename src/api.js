@@ -37,6 +37,8 @@ class JoblyApi {
 
   // Individual API routes
 
+  //Companies API methods
+
   //  Get all companies with optional search filters.
   static async getCompanies(filters = {}) {
     let res = await this.request(`companies`, filters);
@@ -48,6 +50,8 @@ class JoblyApi {
     let res = await this.request(`companies/${handle}`);
     return res.company;
   }
+
+  //Jobs API methods//
 
   // Get all jobs 
   static async getJobs() {
@@ -62,6 +66,9 @@ class JoblyApi {
     const res = await this.request(endpoint);
     return res.jobs;
   }
+
+  //Users API methods//
+
   // Registration API method
   static async registerUser(userData) {
     return await this.request("auth/register", userData, "post");
@@ -85,13 +92,8 @@ class JoblyApi {
 
   // Method to apply to a job
   static async applyToJob(username, jobId) {
-   
-    let response = await this.request(
-      `users/${username}/jobs/${jobId}`,
-      {},
-      "post"
-    );
-    return response;
+    let res = await this.request(`users/${username}/jobs/${jobId}`,{},"post");
+    return res;
   }
 }
 

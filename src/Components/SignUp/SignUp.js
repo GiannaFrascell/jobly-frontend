@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import {useNavigate} from "react-router-dom";
 import JoblyApi from "../../api"; // Import the API class
 
 const SignUp = () => {
+  const navigate = useNavigate();
+
+  // State to store form data
   const [formData, setFormData] = useState({
     username: "",
     firstName: "",
@@ -9,10 +13,10 @@ const SignUp = () => {
     email: "",
     password: "",
   });
-
+// State to store messages
   const [message, setMessage] = useState({ type: "", text: "" });
   const [loading, setLoading] = useState(false); // Loading state
-
+// Function to handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -20,7 +24,7 @@ const SignUp = () => {
       [name]: value,
     }));
   };
-
+// Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage({ type: "", text: "" }); // Clear any previous messages
@@ -35,16 +39,19 @@ const SignUp = () => {
     }
 
     setLoading(true); // Start loading
+
+    // Call the API to register the user
     try {
       const { username, firstName, lastName, email, password } = formData;
       const userData = { username, firstName, lastName, email, password };
 
-      // Call the API to register the user
+      
       const res = await JoblyApi.request("auth/register", userData, "post");
 
       // Handle success
       setMessage({ type: "success", text: "Profile created successfully!" });
-      console.log("User registered:", res.token);
+      navigate("/login");// Redirect to login page
+      console.log("User registered:");
     } catch (err) {
       // Handle error
       setMessage({
@@ -71,6 +78,7 @@ const SignUp = () => {
           value={formData.username}
           onChange={handleChange}
           className="mb-2 w-75 mt-3"
+          required
         />
         <input
           type="text"
@@ -79,6 +87,7 @@ const SignUp = () => {
           value={formData.firstName}
           onChange={handleChange}
           className="mb-2 w-75"
+          required
         />
         <input
           type="text"
@@ -87,6 +96,7 @@ const SignUp = () => {
           value={formData.lastName}
           onChange={handleChange}
           className="mb-2 w-75"
+          required
         />
         <input
           type="email"
@@ -95,6 +105,7 @@ const SignUp = () => {
           value={formData.email}
           onChange={handleChange}
           className="mb-2 w-75"
+          required
         />
         <input
           type="password"
@@ -103,6 +114,7 @@ const SignUp = () => {
           value={formData.password}
           onChange={handleChange}
           className="mb-3 w-75"
+          required
         />
         <button
           type="submit"
@@ -122,7 +134,6 @@ const SignUp = () => {
             {message.text}
           </div>
         )}
-        {loading && <p className="text-center text-white mt-4">Please wait...</p>}
       </form>
     </div>
   );

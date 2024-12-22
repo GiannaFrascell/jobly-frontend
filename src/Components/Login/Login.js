@@ -5,12 +5,14 @@ import JoblyApi from "../../api"; // Import your API utility class
 
 const Login = () => {
   const { login } = useContext(AuthContext); // Access login function from context
-  const navigate = useNavigate();
-
+  const navigate = useNavigate();// Use navigate hook to redirect user
+  // State to store form data
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
+
+  
   const [error, setError] = useState(""); // For error messages
   const [loading, setLoading] = useState(false); // Loading state
 
@@ -70,6 +72,7 @@ const Login = () => {
           value={formData.username}
           onChange={handleChange}
           className="w-75 mb-2 mt-4"
+          required
         />
         <input
           type="password"
@@ -78,6 +81,7 @@ const Login = () => {
           value={formData.password}
           onChange={handleChange}
           className="w-75 mb-3"
+          required
         />
         <button
           type="submit"

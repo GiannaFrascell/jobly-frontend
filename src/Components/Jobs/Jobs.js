@@ -4,13 +4,14 @@ import JoblyApi from "../../api";
 import { AuthContext } from "../../Context/AuthContext";
 
 const Jobs = () => { 
-  const [jobs, setJobs] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [jobs, setJobs] = useState([]);// State to store jobs
+  const [searchTerm, setSearchTerm] = useState("");// State to store search term
   const [searchInput, setSearchInput] = useState(""); // For controlled input
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);// Loading state
+  const [error, setError] = useState(null);// Error state
 
   const { currentUser } = useContext(AuthContext);
+
   // Fetch jobs based on the search term
   useEffect(() => {
     const fetchJobs = async () => {
@@ -41,7 +42,7 @@ const Jobs = () => {
     return (
       <div
         className="d-flex justify-content-center align-items-center vh-100"
-        style={{ backgroundColor: "#000" }} // Optional: Add a dark background for better visibility
+        style={{ backgroundColor: "#000" }}
       >
         <div
           className="spinner-border text-success"

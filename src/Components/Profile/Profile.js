@@ -3,6 +3,7 @@ import JoblyApi from "../../api"; // Assuming JoblyApi is the correct path for t
 import { AuthContext } from "../../Context/AuthContext";
 
 const Profile = () => {
+  // State for form data
   const [formData, setFormData] = useState({
     username: "",
     firstName: "",
@@ -11,9 +12,9 @@ const Profile = () => {
   });
   const [isLoading, setIsLoading] = useState(true); // State for loading profile data
   const [saving, setSaving] = useState(false); // State for saving user profile
-  const [message, setMessage] = useState({ type: "", text: "" });
+  const [message, setMessage] = useState({ type: "", text: "" });// State for success or error message
 
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const { currentUser, setCurrentUser } = useContext(AuthContext);// Get current user from context
 
   useEffect(() => {
     if (currentUser) {
@@ -27,6 +28,7 @@ const Profile = () => {
     }
   }, [currentUser]);
 
+  // Handle form input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -34,7 +36,7 @@ const Profile = () => {
       [name]: value,
     }));
   };
-
+// Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -90,6 +92,7 @@ const Profile = () => {
           value={formData.username}
           disabled
           className="w-75 mb-2 mt-7"
+          
         />
 
         {/* First Name field */}
@@ -100,6 +103,7 @@ const Profile = () => {
           value={formData.firstName}
           onChange={handleChange}
           className="w-75 mb-2"
+          required
         />
 
         {/* Last Name field */}
@@ -110,6 +114,7 @@ const Profile = () => {
           value={formData.lastName}
           onChange={handleChange}
           className="w-75 mb-2"
+          required
         />
 
         {/* Email field */}
@@ -120,6 +125,7 @@ const Profile = () => {
           value={formData.email}
           onChange={handleChange}
           className="w-75 mb-3"
+          required
         />
 
         {/* Submit button */}
