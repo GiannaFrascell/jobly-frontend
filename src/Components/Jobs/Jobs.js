@@ -56,8 +56,8 @@ const Jobs = () => {
   if (error) return <p className="text-center text-danger">{error}</p>;
 
   return (
-    <div className="container py-4 text-white">
-      <h2 className="text-center mb-4 mt-3">Jobs</h2>
+    <div className="container py-4 text-white mt-5">
+      <h2 className="text-center mb-4 mt-5">Jobs</h2>
       <div className="input-group mb-5 w-75 w-sm-50 d-flex align-items-center justify-content-center mx-auto">
         <input
           type="text"

@@ -17,7 +17,7 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div className="container-fluid">
         <Link className="navbar-brand text-white" to="/">
-          <strong className="h3">Jobly</strong>
+          <strong className="h4">Jobly</strong>
         </Link>
         <button
           className="navbar-toggler"

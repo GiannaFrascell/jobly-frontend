@@ -87,7 +87,6 @@ const Login = () => {
           {loading ? "Logging in..." : "Log in"} 
         </button>
         {error && <div className="text-danger mt-3">{error}</div>}
-        {loading && <p className="text-center text-white mt-4">Please wait...</p>}
       </form>
       
     </div>

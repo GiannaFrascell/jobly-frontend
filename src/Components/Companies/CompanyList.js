@@ -31,16 +31,31 @@ const CompanyList = () => {
   }, [searchTerm]);
 
   const handleSearch = () => {
-    setSearchTerm(searchInput); // Trigger search when the button is clicked
+    setSearchTerm(searchInput); 
   };
 
-  if (isLoading)
-    return <p className="text-center text-white">Loading companies...</p>;
+  if (isLoading){
+    return (
+      <div
+        className="d-flex justify-content-center align-items-center vh-100"
+        style={{ backgroundColor: "#000" }} 
+      >
+        <div
+          className="spinner-border text-success"
+          role="status"
+          style={{ width: "3rem", height: "3rem" }}
+        >
+          <span className="sr-only visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
   if (error) return <p className="text-center text-danger">{error}</p>;
 
   return (
-    <div className="container py-4 text-white">
-      <h2 className="text-center mb-5 mt-4">Companies</h2>
+    <div className="container py-4 text-white mt-5">
+      <h2 className="text-center mb-5 mt-5">Companies</h2>
       <div className="input-group mb-5 w-75 d-flex align-items-center justify-content-center mx-auto">
         <input
           type="text"

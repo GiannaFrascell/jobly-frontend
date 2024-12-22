@@ -61,10 +61,10 @@ const CompanyDetail = () => {
   }
 
   return (
-    <div className="container">
+    <div className="container py-4 text-white mt-5">
       <div className="mt-5">
         
-        <h2 className="mt-3">{company.name}</h2>
+        <h2 className="mt-5">{company.name}</h2>
         <p>{company.description}</p>
         <p>Number of Employees: {company.numEmployees}</p>
       </div>
