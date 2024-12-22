@@ -37,7 +37,22 @@ const Jobs = () => {
     setSearchTerm(searchInput); // Trigger search with the input value
   };
 
-  if (isLoading) return <p className="text-center text-white">Loading jobs...</p>;
+  if (isLoading){
+    return (
+      <div
+        className="d-flex justify-content-center align-items-center vh-100"
+        style={{ backgroundColor: "#000" }} // Optional: Add a dark background for better visibility
+      >
+        <div
+          className="spinner-border text-success"
+          role="status"
+          style={{ width: "3rem", height: "3rem" }}
+        >
+          <span className="sr-only visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
   if (error) return <p className="text-center text-danger">{error}</p>;
 
   return (
@@ -69,7 +84,7 @@ const Jobs = () => {
                 salary={job.salary}
                 equity={job.equity}
                 jobId={job.id} 
-                username={currentUser.username} 
+                username={currentUser ? currentUser.username : null} 
               />
             </div>
           ))

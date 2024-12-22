@@ -9,9 +9,9 @@ const Profile = () => {
     lastName: "",
     email: "",
   });
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true); // State for loading profile data
+  const [saving, setSaving] = useState(false); // State for saving user profile
   const [message, setMessage] = useState({ type: "", text: "" });
- 
 
   const { currentUser, setCurrentUser } = useContext(AuthContext);
 
@@ -38,6 +38,7 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setSaving(true); // Start loading
     const { username, ...updatedData } = formData;
 
     try {
@@ -48,16 +49,29 @@ const Profile = () => {
 
       // Set success message
       setMessage({ type: "success", text: "Profile updated successfully!" });
-
     } catch (err) {
       // Set error message
-      setMessage({ type: "error", text: "Error updating profile. Please try again." });
-  
+      setMessage({
+        type: "error",
+        text: "Error updating profile. Please try again.",
+      });
+    } finally {
+      setSaving(false); // Stop loading
     }
   };
 
   if (isLoading) {
-    return <div className="text-center text-white">Loading...</div>;
+    return (
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <div
+          className="spinner-border text-success"
+          role="status"
+          style={{ width: "3rem", height: "3rem" }}
+        >
+          <span className="sr-only visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -113,8 +127,17 @@ const Profile = () => {
           type="submit"
           className="btn btn-success w-50 mt-4"
           style={{ fontSize: "1rem" }}
+          disabled={saving} // Disable button when saving
         >
-          Save
+          {saving ? (
+            <div
+              className="spinner-border spinner-border-sm text-light"
+              role="status"
+              style={{ width: "1rem", height: "1rem" }}
+            ></div>
+          ) : (
+            "Save"
+          )}
         </button>
 
         {/* Success or Error message */}

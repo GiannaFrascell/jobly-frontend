@@ -7,18 +7,20 @@ const Login = () => {
   const { login } = useContext(AuthContext); // Access login function from context
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    if (token) {
-      navigate("/"); 
-    }
-  }, [navigate]);
-
   const [formData, setFormData] = useState({
-    username: "", 
+    username: "",
     password: "",
   });
   const [error, setError] = useState(""); // For error messages
+  const [loading, setLoading] = useState(false); // Loading state
+
+  // Check if user is already logged in
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,6 +32,8 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(""); // Reset error message
+    setLoading(true); // Start loading
 
     try {
       const { username, password } = formData;
@@ -38,7 +42,7 @@ const Login = () => {
       const token = await JoblyApi.login({ username, password });
 
       // Call login from context to set the token
-      login(token); 
+      login(token);
 
       // Redirect to the homepage after successful login
       console.log("Login Successful, token:", token);
@@ -47,13 +51,17 @@ const Login = () => {
       // Handle error - invalid credentials, etc.
       setError("Invalid login credentials. Please try again.");
       console.error("Login error:", err);
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
-
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
-      <form onSubmit={handleSubmit} className="d-flex flex-column justify-content-center align-items-center bg-secondary p-4 rounded shadow-lg gap-1 h-auto w-100 w-md-50" >
+      <form
+        onSubmit={handleSubmit}
+        className="d-flex flex-column justify-content-center align-items-center bg-secondary p-4 rounded shadow-lg gap-1 h-auto w-100 w-md-50"
+      >
         <h2 className="text-center mt-2 mb-6">LOGIN</h2>
         <input
           type="text"
@@ -62,7 +70,6 @@ const Login = () => {
           value={formData.username}
           onChange={handleChange}
           className="w-75 mb-2 mt-4"
-          
         />
         <input
           type="password"
@@ -71,13 +78,18 @@ const Login = () => {
           value={formData.password}
           onChange={handleChange}
           className="w-75 mb-3"
-        
         />
-        <button type="submit" className="btn btn-success w-50 mt-4" style={{ fontSize: "1rem" }}>
-          Log in
+        <button
+          type="submit"
+          className="btn btn-success w-50 mt-4"
+          disabled={loading} 
+        >
+          {loading ? "Logging in..." : "Log in"} 
         </button>
         {error && <div className="text-danger mt-3">{error}</div>}
+        {loading && <p className="text-center text-white mt-4">Please wait...</p>}
       </form>
+      
     </div>
   );
 };

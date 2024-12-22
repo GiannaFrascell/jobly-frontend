@@ -8,15 +8,16 @@ const Navbar = () => {
   const navigate = useNavigate(); // Initialize useNavigate hook in the component
 
   const handleLogout = () => {
-    logout(); // Call logout from context
     navigate("/"); // Redirect to home page after logout
+    logout(); // Call logout from context
+    
   };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div className="container-fluid">
         <Link className="navbar-brand text-white" to="/">
-          <strong className="h2">Jobly</strong>
+          <strong className="h3">Jobly</strong>
         </Link>
         <button
           className="navbar-toggler"

@@ -3,7 +3,7 @@ import JoblyApi from "../../api"; // Import the API class
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
-    username: "", // Added username field
+    username: "",
     firstName: "",
     lastName: "",
     email: "",
@@ -11,6 +11,7 @@ const SignUp = () => {
   });
 
   const [message, setMessage] = useState({ type: "", text: "" });
+  const [loading, setLoading] = useState(false); // Loading state
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,7 +23,18 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage({ type: "", text: "" }); // Clear any previous messages
 
+    // Password validation
+    if (formData.password.length < 5) {
+      setMessage({
+        type: "error",
+        text: "Password must be at least 5 characters long.",
+      });
+      return;
+    }
+
+    setLoading(true); // Start loading
     try {
       const { username, firstName, lastName, email, password } = formData;
       const userData = { username, firstName, lastName, email, password };
@@ -30,17 +42,18 @@ const SignUp = () => {
       // Call the API to register the user
       const res = await JoblyApi.request("auth/register", userData, "post");
 
-      // Handle success (you can store the token here or show a success message)
-      setMessage({ type: "success", text: "Profile Created successfully!" });
+      // Handle success
+      setMessage({ type: "success", text: "Profile created successfully!" });
       console.log("User registered:", res.token);
     } catch (err) {
       // Handle error
       setMessage({
         type: "error",
-        text: "Error Registering. Please try again.",
+        text: "Error registering. Please try again.",
       });
-
       console.error("Error registering user:", err);
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -53,7 +66,7 @@ const SignUp = () => {
         <h2 className="text-center mb-4 mt-3">SIGN UP</h2>
         <input
           type="text"
-          name="username" // Updated to include username
+          name="username"
           placeholder="Username"
           value={formData.username}
           onChange={handleChange}
@@ -95,8 +108,9 @@ const SignUp = () => {
           type="submit"
           className="btn btn-success w-50 mt-4 mb-2"
           style={{ fontSize: "1rem" }}
+          disabled={loading} // Disable the button while loading
         >
-          Sign up
+          {loading ? "Signing up..." : "Sign up"} {/* Show loading text */}
         </button>
         {/* Success or Error message */}
         {message.text && (
@@ -108,6 +122,7 @@ const SignUp = () => {
             {message.text}
           </div>
         )}
+        {loading && <p className="text-center text-white mt-4">Please wait...</p>}
       </form>
     </div>
   );

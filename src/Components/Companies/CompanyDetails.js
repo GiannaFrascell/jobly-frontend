@@ -24,7 +24,6 @@ const CompanyDetail = () => {
         // Fetch company details, which includes the jobs array
         const fetchedCompany = await JoblyApi.getCompany(handle);
         setCompany(fetchedCompany);
-        console.log("Company details:", fetchedCompany);
       } catch (err) {
         console.error("Error fetching company details:", err);
         setError("Could not load company details. Please try again later.");
@@ -37,7 +36,20 @@ const CompanyDetail = () => {
   }, [handle]);
 
   if (isLoading) {
-    return <p>Loading company details...</p>;
+    return (
+      <div
+        className="d-flex justify-content-center align-items-center vh-100"
+        style={{ backgroundColor: "#000" }} // Optional: Add a dark background for better visibility
+      >
+        <div
+          className="spinner-border text-success"
+          role="status"
+          style={{ width: "3rem", height: "3rem" }}
+        >
+          <span className="sr-only visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
   }
 
   if (error) {
@@ -71,7 +83,7 @@ const CompanyDetail = () => {
                 salary={job.salary}
                 equity={job.equity}
                 jobId={job.id} 
-                username={currentUser.username} 
+                username={currentUser ? currentUser.username : null} 
               />
               </div>
             ))}
