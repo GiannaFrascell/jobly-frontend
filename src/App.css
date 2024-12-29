@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+  --bs-primary: #23DB97;
+  --bs-primary-rgb: 35, 219, 151;
+  --bs-secondary: #2B2D33;
+  --bs-secondary-rgb: 43, 45, 51;
+  --bs-body-bg: #1C1C1F;
+  --bs-body-color: #FFF;
+  --font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  font-family: var(--font-family);
+}
+
+
+
+/* Buttons */
+.btn {
+  background-color: var(--bs-success);
+  border-color: var(--button-heading-color);
+  color: var(--bs-secondary);
+  font-weight: 600;
+  padding: 0.6rem 1.5rem;
+}
+
+.btn:hover {
+  background-color: var(--bs-secondary);
+  border-color: var(--button-heading-color);
+  color: var(--bs-primary);
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--bs-primary);
+  font-weight: 700;
+}
+
+
+
+/* Navbar styles */
+.navbar {
+  background-color: var(--bs-secondary);
+  color: var(--bs-body-color);
+}
+
+.navbar-nav .nav-link {
+  color: var(--bs-body-color);
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.4rem;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--bs-success);
+
+}
+.navbar-nav .nav-link.active {
+  color:var(--bs-primary); 
+}
+
+
+
+
+/* Card Styles */
+.card {
+  min-height: 300px; 
+  display: flex;
+  
+}
+
+.card-body {
+  flex-grow: 1; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 2rem;
+}
+
+.card-title {
+  color: var(--button-heading-color);
+}
+
+.card-text {
+  color: var(--bs-body-color);
+}
+
+/* Input styles */
+
+input {
+  color: #c1c5cf; 
+  background-color: #343843; 
+  border: 1px solid #343843; 
+  border-radius: 10px; 
+  padding: 8px 12px; 
+  font-size: 16px; 
+  outline: none; 
+}
+
+/* Global styles for placeholder */
+input::placeholder {
+  color: #878787; 
+  opacity: 1; 
+}
+
+/* Optional: add focus style */
+input:focus {
+  border-color: #343843; 
+  box-shadow: 0 0 5px rgba(52, 56, 67, 0.3); 
+}
+
+form{
+  max-width: 600px;
+  min-height: 500px;
+  margin: 0 auto;
+}
